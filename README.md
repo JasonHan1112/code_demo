@@ -1,2 +1,1 @@
-# linux_app
-linux_app
+code demo for fun... <^_^>
