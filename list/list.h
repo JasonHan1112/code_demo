@@ -8,6 +8,7 @@
  * @member:     the name of the member within the struct.
  *
  */
+#define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
 #define container_of(ptr, type, member) ({                      \
 	const typeof( ((type *)0)->member ) *__mptr = (ptr);    \
 	(type *)( (char *)__mptr - offsetof(type,member) );})
@@ -21,6 +22,7 @@
 struct list_head {
 	struct list_head *next, *prev;
 };
+typedef struct list_head LIST_HEAD;
 
 /**
  * list_entry - get the struct for this entry
@@ -95,6 +97,7 @@ static inline void list_add_prev(struct list_head *new,
 {
 	__list_add(new, head->prev, head);
 }
+#define list_add_tail list_add_prev
 
 /*
  * Delete a list entry by making the prev/next entries
@@ -141,6 +144,35 @@ static inline void list_del(struct list_head *head)
 	__list_del(head->prev, head->next);
 }
 
+/**
+ * list_empty - tests whether a list is empty
+ * @head: the list to test.
+ */
+static inline int list_empty(const struct list_head *head)
+{
+	return head->next == head;
+}
 
 
+/**
+ * list_for_each_entry	-	iterate over list of given type, except the @head node
+ * @pos:	the type * to use as a loop cursor.
+ * @head:	the head for your list.
+ * @member:	the name of the list_struct within the struct.
+ */
+#define list_for_each_entry(pos, head, member)				\
+	for (pos = list_entry((head)->next, typeof(*pos), member);	\
+	     &pos->member != (head); 	\
+	     pos = list_entry(pos->member.next, typeof(*pos), member))
+
+
+/**
+ * list_for_each	-	iterate over a list
+ * @pos:	the &struct list_head to use as a loop cursor.
+ * @head:	the head for your list.
+ */
+#define list_for_each(pos, head) \
+	for (pos = (head)->next; pos != (head); pos = pos->next)
+
+	
 #endif
