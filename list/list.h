@@ -131,6 +131,16 @@ static inline void list_del_prev(struct list_head *head)
 	__list_del(head->prev->prev, head);
 }
 
+/*
+ * delete node.
+ * 
+ * tips:all the head must exist
+ */
+static inline void list_del(struct list_head *head)
+{
+	__list_del(head->prev, head->next);
+}
+
 
 
 #endif
