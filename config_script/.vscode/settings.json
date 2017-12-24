@@ -1,0 +1,5 @@
+{
+    "editor.detectIndentation": true, //add by h
+    "editor.tabSize": 4, //add by h
+    "editor.insertSpaces": true //add by h
+}

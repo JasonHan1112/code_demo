@@ -10,29 +10,36 @@
 /*function*/
 
 /*
-analyze config dir 
+*analyze config dir 
 */
 int analyze_dir(const char* config_dir);
 
 
 
 /*
-analyze config file for content and symbol
+*analyze config file for content and symbol
 */
-int analyze_config_file(const char* config_file);
+int analyze_config_file(const char* config_file, char* fmt, int* a, int* b, int* c, int* d);
 
 /*
-find symbol 
+*find symbol 
 */
-int find_symbol(const char* config_file);
+static int find_lines(int fd_file);
 
 /*
-find content
+*find content
 */
-int find_content(const char* config_file);
+static int find_content(char* readline[], char* fmt, int* a, int* b, int* c, int* d);
 
 /*
-
+*resolve parameters
 */
+static int resolve(char* readline);
+
+
+/*
+*free each line
+*/
+static int freelines(char* readline[]);
 
 #endif
