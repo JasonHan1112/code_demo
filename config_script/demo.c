@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
 #include "config.h"
 struct test
 {
@@ -10,18 +12,23 @@ struct test
 };
 int main(void)
 {
-   int a;
+  int a;
   int b;
   int c;
-  int d;
+  float d;
 #if 1/*test print define*/
   printf("%s\n", CONFIG_FILE(script.conf));
 #endif
+#if 1
   analyze_dir("./");
-  analyze_config_file("./script.conf", "hello=%d how=%d are=%d you=%d", &a, &b, &c, &d);/*need fix varlist*/
+  analyze_config_file("./script.conf", 4, "%d %d %d %f", &a, &b, &c, &d);/*need fix varlist*/
+  printf("%d   ", 0);
   printf("a = %d\n", a);
   printf("b = %d\n", b);
   printf("c = %d\n", c);
-  printf("d = %d\n", d);
+  printf("d = %f\n", d);
+  
+#endif
+
   return 0;
 }

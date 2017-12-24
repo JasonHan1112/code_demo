@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
-
+#include <stdarg.h>
 
 #include "config.h"
 
@@ -21,6 +21,9 @@
 
 #define LINE_CHAR 10
 #define COL_CHAR 128
+
+#define MAX_PRINT 512
+#define MAX_FMT 256
 
 
 
@@ -57,9 +60,10 @@ STAT_ERR:
 }
 
 /*need fix*/
-int analyze_config_file(const char* config_file, char* fmt, int* a, int* b, int* c, int* d)
+int analyze_config_file(const char* config_file, unsigned int line, char* fmt, ...)
 {
   int ret = 0;
+  va_list arg_ptr;/*var list*/
   ret = open(config_file, O_RDONLY);
   if(ret < 0)
   {
@@ -70,12 +74,15 @@ int analyze_config_file(const char* config_file, char* fmt, int* a, int* b, int*
   {
     goto ERR_FIND_LINES;
   }
+  va_start(arg_ptr, fmt);/*arg_ptr point to the first param*/
 
-  ret = find_content(read_line, fmt, a, b, c, d);/*need fix*/
-
+  ret = find_line_content(read_line, line, fmt, arg_ptr);/*need fix*/
+  va_end(arg_ptr);
+  if(ret < 0)
   {
     goto ERR_FIND_CONTENT;
   }
+
 
   return 0;
 
@@ -142,7 +149,7 @@ static int find_lines(int fd_file)
       
     } 
   }
- 
+  
   close(fd_file);
   return 0;
 
@@ -158,35 +165,24 @@ ERR_READ_CON_FIL:
   perror("read error");
   return -1;
 }
-/*4 parameters in one line*//*fmt = "%d %d %d %d"*//*need fix*/
-static int find_content(char* readline[], char* fmt, int* a, int* b, int* c, int* d)
+
+static int find_line_content(char* readline[], unsigned int line, char* fmt, va_list arg_ptr)
 {
   int i = 0;
   char* p_ret = NULL;
   int ret = 0;
-  while(readline[i])
+  if(line <= 0)
   {
-    p_ret = strstr(readline[i], "#");
-    if(p_ret)/*comment lines*/
-    {
-      i++;
-      continue;
-    }
-    else/*valid lines*/
-    {
-#if 1/*debug need fix*/
-      sscanf(readline[i], fmt, a,b,c,d);
-      DEBUG_INFO("valid lines = %s, line = %d", readline[i], i+1);
-      printf("a = %d\n", *a);
-      printf("b = %d\n", *b);
-      printf("c = %d\n", *c);
-      printf("d = %d\n", *d);
-#endif
-      i++;
-    }
-    
+    goto ERROR;
   }
+  printf("%s\n", readline[line-1]);
+  vsscanf(readline[line-1], fmt, arg_ptr); 
   return 0;
+
+ERROR:
+  ERR_INFO("read_line malloc error");
+  return -1;
+  
 }
 static int resolve(char* readline)
 {

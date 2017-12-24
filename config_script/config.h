@@ -19,7 +19,7 @@ int analyze_dir(const char* config_dir);
 /*
 *analyze config file for content and symbol
 */
-int analyze_config_file(const char* config_file, char* fmt, int* a, int* b, int* c, int* d);
+int analyze_config_file(const char* config_file, unsigned int line, char* fmt, ...);
 
 /*
 *find symbol 
@@ -29,7 +29,7 @@ static int find_lines(int fd_file);
 /*
 *find content
 */
-static int find_content(char* readline[], char* fmt, int* a, int* b, int* c, int* d);
+static int find_line_content(char* readline[], unsigned int line, char* fmt, va_list arg_ptr);
 
 /*
 *resolve parameters
