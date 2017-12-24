@@ -16,17 +16,19 @@ int main(void)
   int b;
   int c;
   float d;
+  int e;
 #if 1/*test print define*/
   printf("%s\n", CONFIG_FILE(script.conf));
 #endif
 #if 1
   analyze_dir("./");
-  analyze_config_file("./script.conf", 4, "%d %d %d %f", &a, &b, &c, &d);/*need fix varlist*/
+  analyze_config_file("./script.conf", 2, "%d %d %d %f %d", &a, &b, &c, &d, &e);
   printf("%d   ", 0);
   printf("a = %d\n", a);
   printf("b = %d\n", b);
   printf("c = %d\n", c);
   printf("d = %f\n", d);
+  printf("d = %d\n", e);
   
 #endif
 
