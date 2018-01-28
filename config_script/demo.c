@@ -21,8 +21,8 @@ int main(void)
   printf("%s\n", CONFIG_FILE(script.conf));
 #endif
 #if 1
-  analyze_dir("./");
-  analyze_config_file("./script.conf", 2, "%d %d %d %f %d", &a, &b, &c, &d, &e);
+  analyze_dir("./");/*test script.conf is exit*/
+  analyze_config_file("./script.conf", 2, "%d %d %d %f %d", &a, &b, &c, &d, &e);/*formt read line para*/
   printf("%d   ", 0);
   printf("a = %d\n", a);
   printf("b = %d\n", b);

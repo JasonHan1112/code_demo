@@ -1,0 +1,3 @@
+this is for testing eid
+after chmod u+s a.out can make other user execute the progress 
+as owner(eid = owner id)

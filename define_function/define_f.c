@@ -27,7 +27,12 @@ int forever(void)
   while(1);
 }
 
-INIT_FUN init_fun_array[MAX_INIT_CALL] = {INIT(third), INIT(second), INIT(first)};/*initialize function pointer*/
+INIT_FUN init_fun_array[MAX_INIT_CALL] = 
+{
+  INIT(third),
+  INIT(second), 
+  INIT(first),
+};/*initialize function pointer*/
 
 int main(void)
 {

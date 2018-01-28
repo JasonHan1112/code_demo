@@ -1,1 +1,5 @@
-<debug.h>for printf or store debug information 
+<debug.h>
+for printf or store debug information 
+<dir debug>
+for a new print & store information for myself
+

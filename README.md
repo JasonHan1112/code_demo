@@ -1,1 +1,2 @@
-code demo for fun... <^_^>
+code demo for test...
+funny... <^_^>
