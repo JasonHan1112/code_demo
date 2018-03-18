@@ -1,0 +1,8 @@
+before fork:
+ p1 = 123, p2 = 456, p3 = 789
+this is child progress pid = 23030
+after fork pid = 23030, p1 = 223, p2 = 556, p3 = 889
+before fork:
+ p1 = 123, p2 = 456, p3 = 789
+this is parent progress pid = 23029
+after fork pid = 23029, p1 = 123, p2 = 456, p3 = 789
