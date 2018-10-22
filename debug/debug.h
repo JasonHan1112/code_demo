@@ -36,6 +36,19 @@ do\
 
 #endif
 
+
+######################################################
+#ifdef DEBUG #define DEBUG_ERR(format,args...) \
+do{ \
+    printk("[%s:%d] ",__FUNCTION__,__LINE__); \
+    printk(format,##args); \
+}while(0)
+#else
+#define DEBUG_PRINT(format,args...)
+#endif
+
+######################################################
+
 #endif
 
 
